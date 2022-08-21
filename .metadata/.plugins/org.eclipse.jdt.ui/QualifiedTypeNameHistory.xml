@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="pageObjects.AajTakHomePage"/>
+    <fullyQualifiedTypeName name="pageObjects.HomePage"/>
+    <fullyQualifiedTypeName name="pageObjects.CricketTab"/>
+    <fullyQualifiedTypeName name="java.util.Properties"/>
+    <fullyQualifiedTypeName name="java.io.FileInputStream"/>
+    <fullyQualifiedTypeName name="java.util.concurrent.TimeUnit"/>
+    <fullyQualifiedTypeName name="Base.NavigateToURL"/>
+    <fullyQualifiedTypeName name="org.openqa.selenium.support.FindBy"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="org.openqa.selenium.WebElement"/>
+    <fullyQualifiedTypeName name="org.openqa.selenium.WebDriver"/>
+    <fullyQualifiedTypeName name="pageObjects.Web_Stories"/>
+    <fullyQualifiedTypeName name="Base.DriverInitializer"/>
+    <fullyQualifiedTypeName name="java.util.Set"/>
+    <fullyQualifiedTypeName name="java.util.Iterator"/>
+    <fullyQualifiedTypeName name="org.openqa.selenium.By"/>
+    <fullyQualifiedTypeName name="org.openqa.selenium.Keys"/>
+</qualifiedTypeNameHistroy>

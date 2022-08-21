@@ -1,0 +1,24 @@
+package Base;
+
+import java.io.FileInputStream;
+import java.util.Properties;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+public class DriverInitializer {
+	
+	static WebDriver driver;
+	static Properties p;
+	static FileInputStream fis;
+	
+	
+
+	public static WebDriver Initializer() throws Throwable {
+
+		String current_working_directory = System.getProperty("user.dir");
+		System.setProperty("webdriver.chrome.driver", current_working_directory + "\\Driver\\chromedriver.exe");
+		driver = new ChromeDriver();
+		
+	    return driver;
+	}
+
+}

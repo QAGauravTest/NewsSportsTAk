@@ -1,0 +1,91 @@
+package pageObjects;
+
+import java.time.Duration;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class AajTakHomePage {
+	
+	WebDriver driver;
+	WebDriverWait wait ;
+	
+	public AajTakHomePage(WebDriver driver) {
+		this.driver = driver;
+		PageFactory.initElements(driver, this);
+	}
+	
+	
+	
+	
+	@FindBy(xpath = "//span[contains(text(),'Hi')]")
+	WebElement Select_Hindi_language;
+	
+	@FindBy(xpath = "//span[contains(text(),'Eng')]")
+	WebElement Select_English_language;
+	
+	@FindBy(xpath = "//span[contains(text(),'Dark')]" )
+	public WebElement Dark_Theme;
+	
+	@FindBy(xpath = "//span[contains(text(),'Light')]" )
+	WebElement Light_Theme;
+
+		public void  switch_Language_To_Hindi(WebDriver driver)
+		{
+		    Actions a = new Actions(driver);
+			Duration time = Duration.ofSeconds(30);
+			wait = new WebDriverWait(driver, time);
+
+			wait.until(ExpectedConditions.visibilityOf(Select_Hindi_language));
+
+			wait.until(ExpectedConditions.visibilityOf(Select_Hindi_language));
+
+			if (Select_Hindi_language.isDisplayed() == true) 
+			{
+				a.moveToElement(Select_Hindi_language)
+				   .pause(Duration.ofSeconds(2)).click().build().perform();
+			}
+		
+		}
+		
+		
+		
+		public void switch_Language_ToEnglish(WebDriver driver)
+		{
+			Actions a = new Actions(driver);
+			Duration time = Duration.ofSeconds(30);
+			wait = new WebDriverWait(driver, time);
+
+			wait.until(ExpectedConditions.visibilityOf(Select_English_language));
+
+			if (Select_English_language.isDisplayed() == true) 
+			{
+				a.moveToElement(Select_English_language)
+				   .pause(Duration.ofSeconds(2)).click().build().perform();
+			}
+		}
+	
+
+		
+		public void switch_to_Dark_Theme(WebDriver driver) {
+
+			if (Dark_Theme.isDisplayed() == true) {
+				Dark_Theme.click();
+			}
+		}
+		
+		public void switch_to_Light_Theme(WebDriver driver) {
+
+			if (Light_Theme.isDisplayed() == true) {
+				Light_Theme.click();
+			}
+		}
+	
+
+}

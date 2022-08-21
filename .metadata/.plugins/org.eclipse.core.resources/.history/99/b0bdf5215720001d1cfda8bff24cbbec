@@ -1,0 +1,30 @@
+package Base;
+
+import java.time.Duration;
+
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import pageObjects.CricketTab;
+import pageObjects.HomePage;
+import propertiesPackage.News;
+
+public class DriverInitializer {
+	
+	String FileName = "config.properties";
+	WebDriver driver;
+	News news_object;
+	Duration time = Duration.ofSeconds(30);
+	JavascriptExecutor js ;
+	HomePage HomePageObject;
+	CricketTab CricketTabObject;
+	
+ 	WebDriverWait wait ;
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

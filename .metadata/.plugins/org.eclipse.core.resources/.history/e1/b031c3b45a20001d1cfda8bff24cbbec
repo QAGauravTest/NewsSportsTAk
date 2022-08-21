@@ -1,0 +1,366 @@
+package propertiesPackage;
+
+import java.io.FileReader;
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.time.Duration;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Properties;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.WindowType;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class News {
+
+	private static final Object[] String = null;
+	String FileName = "config.properties" ;
+	News news_object ;
+	WebDriver driver ;
+	WebDriverWait wait ;
+	
+	@FindBy(xpath = "//span[contains(text(),'Dark')]" )
+	WebElement Dark_Theme;
+	
+	@FindBy(xpath = "//span[contains(text(),'Light')]" )
+	WebElement Light_Theme;
+	
+	@FindBy(xpath = "//span[contains(text(),'Hi')]")
+	WebElement Select_Hindi_language;
+	
+	@FindBy(xpath = "//span[contains(text(),'Eng')]")
+	WebElement Select_English_language;
+	
+	@FindBy( xpath="//a[contains(text(),'Web Story')]" )
+	WebElement WebStory_element;
+	
+	@FindBy( xpath= "//amp-story-page" )
+	List<WebElement> WebStory_story_page;
+	
+	@FindBy( xpath= "//amp-story-page[2]" )
+	WebElement WebStory_story_page_2;
+	
+	@FindBy( xpath= ("(//div[@class='letterbox']//p) [contains(text(),' ')]") )
+	List<WebElement> WebStory_In_Each_Page_paragraph;
+	@FindBy( xpath="(//div[@class='letterbox']//h1) [contains(text(),' ')]" )
+	List<WebElement> WebStory_In_Each_Page_header;
+	@FindBy( xpath= ("//div[@class='letterbox']//h2" ) )
+	List<WebElement> WebStory_In_Each_Page_header_h2 ;
+	
+	@FindBy( xpath= "//div[@class='i-amphtml-glass-pane']" )
+	WebElement Webstory_ADD_Display;
+	
+	@FindBy( xpath= "//button[1]" )
+	WebElement WebStory_Button_Move_Next;
+	
+	@FindBy( xpath= "//button/span[contains(text(),'Cricket')]" )
+	WebElement Home_Page_Cricket;
+	
+	@FindBy( xpath= "//button/span[contains(text(),'All')]" )
+	WebElement Home_Page_ALL;
+	
+	@FindBy( xpath= "(//h2[contains(@class,'MuiTypography')]/parent::a)[3]" )
+	WebElement Home_Page_Cricket_third_page;
+	
+	@FindBy( xpath= "(//h2[contains(@class,'MuiTypography')]/parent::a)" )
+	List<WebElement> Home_Page_ALL_URLs;
+	
+	
+	
+	
+	@FindBy(xpath = "//img[contains(@title,'sports-today') and @class='logo-container'] ")
+	WebElement HomePageIcon ;
+	
+	@FindBy(xpath = " //div/h2[contains(text(),'Webstories')]/parent::div/div/div/a[contains(@target,'_blank')] ")
+	List<WebElement> Number_of_Webstories ;
+	
+	
+	
+	public News(WebDriver driver) {
+		this.driver = driver;
+		PageFactory.initElements(driver, this);
+	}
+
+	public WebDriver driver_browser() {
+		String current_working_directory = System.getProperty("user.dir");
+		System.setProperty("webdriver.chrome.driver", current_working_directory + "\\Driver\\chromedriver.exe");
+		WebDriver driver= new ChromeDriver();
+		return driver;
+	}
+
+	// Method created to return "Value" for the "Key" called from Properties file
+	public String propertiesPageValue(String key, String FileName) throws Exception {
+		String Current_working_directory = System.getProperty("user.dir");
+
+		FileReader reader = new FileReader(Current_working_directory + "\\src\\main\\java\\" + FileName);
+		Properties prop = new Properties();
+		prop.load(reader);
+		return prop.getProperty(key); // Returns Key "Value"
+
+	}
+
+	public void launchURL(String URL, WebDriver driver) {
+		driver.get(URL);
+		driver.manage().window().maximize();
+	}
+
+	public void switch_to_Light_Theme(WebDriver driver) {
+
+		if (Light_Theme.isDisplayed() == true) {
+			Light_Theme.click();
+		}
+	}
+
+	public void switch_to_Dark_Theme(WebDriver driver) {
+
+		if (Dark_Theme.isDisplayed() == true) {
+			Dark_Theme.click();
+		}
+	}
+
+	public void switch_Language_ToEnglish(WebDriver driver)
+	{
+		Actions a = new Actions(driver);
+		Duration time = Duration.ofSeconds(30);
+		wait = new WebDriverWait(driver, time);
+
+		wait.until(ExpectedConditions.visibilityOf(Select_English_language));
+
+		if (Select_English_language.isDisplayed() == true) 
+		{
+			a.moveToElement(Select_English_language)
+			   .pause(Duration.ofSeconds(2)).click().build().perform();
+		}
+	}
+	
+	public void switch_Language_ToHindi(WebDriver driver)
+		{
+		    Actions a = new Actions(driver);
+			Duration time = Duration.ofSeconds(30);
+			wait = new WebDriverWait(driver, time);
+
+			wait.until(ExpectedConditions.visibilityOf(Select_Hindi_language));
+
+			wait.until(ExpectedConditions.visibilityOf(Select_Hindi_language));
+
+			if (Select_Hindi_language.isDisplayed() == true) 
+			{
+				a.moveToElement(Select_Hindi_language)
+				   .pause(Duration.ofSeconds(2)).click().build().perform();
+			}
+		
+		}
+	
+	
+	
+	
+	public boolean validate_BrokenLink(String URL_to_check, WebDriver driver) throws InterruptedException
+	{
+		boolean valid_URL_or_Not = true ;
+		    String homePage = URL_to_check ;
+	        String url = URL_to_check ;
+	        HttpURLConnection huc = null;
+	        int respCode = 200;
+	        String parentWindow = driver.getWindowHandle();
+	        this.driver = driver;
+	        driver.switchTo().newWindow(WindowType.WINDOW.TAB);
+	    	  
+	         driver.get(homePage);
+	        
+	        //    Thread.sleep(4000);
+	            System.out.println("Validating below URL :-\n" + url + "\n");
+	        
+	            if(url == null || url.isEmpty()){
+	                System.out.println("URL is either not configured for anchor tag or it is empty");
+	                valid_URL_or_Not = false ;
+	            }
+	            
+	            if(!url.startsWith(homePage)){
+	                System.out.println("URL belongs to other domain");
+	                valid_URL_or_Not = false ;
+	            }
+	            
+	            try {
+	                huc = (HttpURLConnection)(new URL(url).openConnection());
+	                huc.setRequestMethod("HEAD");
+	                huc.connect();
+	                respCode = huc.getResponseCode();
+	                
+	                if(respCode >= 400){
+	                    valid_URL_or_Not = false ;
+	                }
+	                    
+	            } catch (MalformedURLException e) {
+	                // TODO Auto-generated catch block
+	                e.printStackTrace();
+	            } catch (IOException e) {
+	                // TODO Auto-generated catch block
+	                e.printStackTrace();
+	            }
+	            Thread.sleep(2000);
+	            driver.close();
+	            Thread.sleep(2000);
+	            driver.switchTo().window(parentWindow);
+	            Thread.sleep(2000);
+	            return valid_URL_or_Not ;
+	        }
+
+	
+	public void Webstories(WebDriver driver) throws Exception
+	{
+		Thread.sleep(6000);
+		WebStory_element.click();
+		Thread.sleep(6000);
+		
+		List<WebElement> WebStories =  Number_of_Webstories ;
+		String[] WebstoriesText = new String[WebStories.size()] ;
+		String[] URL_webstories = new String[WebStories.size()] ;
+		
+		int index = 0;
+		  for(WebElement wb : WebStories )
+		  {
+			  
+			  WebstoriesText[index] = wb.getText();
+			  URL_webstories[index] = wb.getAttribute("href").toString() ;
+			  index++ ;
+		  }
+		  System.out.println("Webstories Text ***************** *************** ********* \n");
+		  for(String sample : WebstoriesText )
+		  {
+			  System.out.println( "WebstoriesText : " + sample );
+		  }
+		  System.out.println(" *****************  *************** URLs *************** ********* \n");
+		  for(String sample_url : URL_webstories )
+		  {
+			  System.out.println( "URL : " + sample_url );
+		  }
+		  
+		  
+		  System.out.println("\n ***************** !! *************** Each Page Webstories *************** !! ****************** \n");
+		  String ParentWindow = driver.getWindowHandle();
+		  // Loop to iterate and get text through Each Page of Web-story
+		  for(String sample_url : URL_webstories )
+		  {
+			  Thread.sleep(3000);
+			  Actions a = new Actions(driver);
+			  ParentWindow = driver.getWindowHandle();
+			  driver.switchTo().newWindow(WindowType.WINDOW.TAB);
+			  
+			  driver.get(sample_url);
+			  Thread.sleep(10000);
+			 
+				
+				String[] WebstoriesText_header = new String[WebStory_story_page.size()];
+				String[] WebstoriesText_paragraph = new String[WebStory_story_page.size()];
+				
+				 
+				  int index_webstories;
+				try {
+					index_webstories = 0;
+					  for(WebElement wb : WebStory_story_page )
+					  {
+							  if(Webstory_ADD_Display.isDisplayed())
+							  {
+								  a.moveToElement(WebStory_Button_Move_Next)
+								    .pause(Duration.ofSeconds(1)).click().build().perform();
+								  Thread.sleep(3000);
+								  continue ;
+							  }
+						  
+						  try {
+							WebstoriesText_header[index_webstories] = WebStory_In_Each_Page_header.get(index_webstories).getText() ;
+									
+						} catch (Exception e) {
+							try {
+								WebstoriesText_header[index_webstories] = WebStory_In_Each_Page_header_h2.get(index_webstories).getText() ;
+							} catch (Exception e1) {
+								// TODO Auto-generated catch block
+								WebstoriesText_header[index_webstories] = WebStory_In_Each_Page_paragraph.get(index_webstories).getText();
+							}
+						}
+						  try {
+							WebstoriesText_paragraph[index_webstories] =  WebStory_In_Each_Page_paragraph.get(index_webstories).getText();
+							
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							try {
+								WebstoriesText_paragraph[index_webstories] =   WebStory_In_Each_Page_header_h2.get(index_webstories).getText() ;
+							} catch (Exception e1) {
+								// TODO Auto-generated catch block
+								WebstoriesText_paragraph[index_webstories] =   WebStory_In_Each_Page_header.get(index_webstories).getText() ;
+							}
+							
+						}
+						  a.moveToElement(WebStory_Button_Move_Next)
+						    .pause(Duration.ofSeconds(1)).click().build().perform();
+						  Thread.sleep(9000);
+						 if(index_webstories<9) 
+						       index_webstories++ ;
+
+					   } // For loop to capture text ends here
+					  
+//					  a.moveToElement(WebStory_Button_Move_Next)
+//					   .pause(Duration.ofSeconds(3)).click().build().perform();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					System.out.println("Error  : ");
+					
+				}
+				 
+				  System.out.println("URL : " + sample_url);
+				  System.out.println("\n----------&&----------Webpage Title : " + driver.getTitle() + "----------&&----------\n");
+				  index_webstories = 0;
+				  for(String text : WebstoriesText_header)
+				  {
+					  try {
+					  if(index_webstories<9) 
+						{
+						 System.out.println("Story No : " + (index_webstories + 1) );
+						 System.out.println("Webstories Header : "
+						       + WebstoriesText_header[index_webstories]  + 
+						              "\nWebstories Paragraph : "+ WebstoriesText_paragraph[index_webstories] );
+						}
+						  if(index_webstories<9) 
+						       index_webstories++ ;
+						  
+					} catch (Exception e) {
+						System.out.println("Issue in : Paragraph : " + WebstoriesText_paragraph[index_webstories] );
+						System.out.println("Issue in : Header : " + WebstoriesText_header[index_webstories] );
+					}
+				  } // For Loop to print text ends here
+				  
+				  
+				 driver.close(); // Closed Web-stories page
+				 driver.switchTo().window(ParentWindow) ;
+				 
+			  
+		  } // For Loop to iterate and get text from available Story URLs ends here
+		  
+		  driver.switchTo().window(ParentWindow) ;
+		  Thread.sleep(6000);
+		  HomePageIcon.click();
+		  
+	}
+	
+	
+	
+	    
+
+	
+	
+	
+	
+	
+} // Class Ends Here

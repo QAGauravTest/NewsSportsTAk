@@ -1,0 +1,98 @@
+package propertiesPackage;
+
+import org.testng.annotations.Test;
+
+import Base.NavigateToURL;
+import pageObjects.CricketTab;
+import pageObjects.HomePage;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Listeners;
+import java.time.Duration;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
+import org.testng.annotations.AfterTest;
+
+@Listeners(TestNGListner.class)
+public class NewTest {
+
+	String FileName = "config.properties";
+	WebDriver driver=NavigateToURL.Initializer();
+	Duration time = Duration.ofSeconds(30);
+	JavascriptExecutor js;
+	HomePage HomePageObject;
+	CricketTab CricketTabObject;
+	WebDriverWait wait;
+
+	@BeforeTest
+	public void beforeTest_setup() throws Throwable {
+
+		NavigateToURL.UrlNavigation();
+		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		HomePageObject = new HomePage(driver);
+		CricketTabObject = new CricketTab(driver);
+		wait = new WebDriverWait(driver, time);
+		js = (JavascriptExecutor) driver;
+
+	}
+
+	@Test(priority = 1, testName = "Language Test")
+	public void selectLanguage_Test() throws InterruptedException {
+
+		HomePageObject.switch_Language_To_Hindi(driver);
+		Thread.sleep(3000);
+		HomePageObject.switch_Language_ToEnglish(driver);
+		Thread.sleep(3000);
+		// Assert.assertTrue(news_object.Select_Hindi_language.isDisplayed(),
+		// "******************* selectLanguage Test Failed");
+
+	}
+
+	@Test(priority = 2, testName = "Theme Test")
+	public void select_Theme() throws InterruptedException {
+
+		wait.until(ExpectedConditions.visibilityOf(HomePageObject.Dark_Theme));
+		HomePageObject.switch_to_Dark_Theme(driver);// Switch to Dark Theme
+		Thread.sleep(3000);
+		wait.until(ExpectedConditions.visibilityOf(HomePageObject.Light_Theme));
+		HomePageObject.switch_to_Light_Theme(driver);// Switch to Light Theme
+		Thread.sleep(3000);
+		Assert.assertTrue(HomePageObject.Dark_Theme.isDisplayed(), "******************* select_Theme Test Failed");
+
+	}
+
+	@Test(priority = 3, testName = "Cricket Test_scroll_Third")
+	public void Cricket_Test() throws Throwable {
+		Thread.sleep(3000);
+		wait.until(ExpectedConditions.visibilityOf(HomePageObject.Home_Page_Cricket));
+		HomePageObject.Home_Page_Cricket.click();
+		Thread.sleep(3000);
+		CricketTabObject.ThirdPage.click();
+		Thread.sleep(2000);
+		CricketTabObject.validate_BrokenLink();
+	}
+
+	@Test(priority = 5, testName = "Webstories Test")
+	public void Webstories_Test() throws Exception {
+
+		// news_object.Webstories(driver);
+		Assert.assertTrue(driver.getTitle().contains("SportsTak Webstories"),
+				"******************* Webstories_Test Test Failed");
+
+	}
+
+	@Test(priority = 4)
+	public void verify_Thumbnail_Links() throws Throwable {
+		HomePageObject.validate_BrokenLink_HomePage();
+	}
+
+	@AfterTest
+	public void afterTest() {
+		driver.quit();
+	}
+
+}

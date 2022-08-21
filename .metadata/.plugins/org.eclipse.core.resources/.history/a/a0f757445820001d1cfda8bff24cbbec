@@ -1,0 +1,45 @@
+package Base;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.time.Duration;
+import java.util.Properties;
+
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import pageObjects.CricketTab;
+import pageObjects.HomePage;
+import propertiesPackage.News;
+
+public class DriverInitializer {
+	
+	String FileName = "config.properties";
+	static WebDriver driver;
+	News news_object;
+	Duration time = Duration.ofSeconds(30);
+	JavascriptExecutor js ;
+	static Properties p;
+	static FileInputStream fis;
+	
+	
+ 	WebDriverWait wait ;
+
+	public static void main(String[] args) throws Throwable {
+
+		String current_working_directory = System.getProperty("user.dir");
+		System.setProperty("webdriver.chrome.driver", current_working_directory + "\\Driver\\chromedriver.exe");
+		driver = new ChromeDriver();
+		fis=new FileInputStream(current_working_directory+"src\\main\\java\\config.properties");
+		p=new Properties();
+		p.load(fis);
+		
+
+		
+		
+	    System.out.println("Before Test Setup Done Successfully\n URL Launched\n------------------");
+	}
+
+}

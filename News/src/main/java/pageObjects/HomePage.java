@@ -1,0 +1,138 @@
+package pageObjects;
+
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.time.Duration;
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.asserts.SoftAssert;
+
+public class HomePage {
+
+	WebDriver driver;
+	WebDriverWait wait;
+
+	public HomePage(WebDriver driver) {
+		this.driver = driver;
+		PageFactory.initElements(driver, this);
+	}
+
+	@FindBy(xpath = "(//*[text()='Home'])[2]")
+	public WebElement Home_Button;
+	
+	@FindBy(xpath = "(//*[text()='Back'])")
+	public WebElement Back_Button;
+
+	@FindBy(xpath = "(//*[text()='All'])")
+	public WebElement HomePageAllButton;
+
+	@FindBy(xpath = "//*[contains(text(),'Web Story')]")
+	public WebElement WebStoryButton;
+
+	@FindBy(xpath = "//span[contains(text(),'Hi')]")
+	WebElement Select_Hindi_language;
+
+	@FindBy(xpath = "//span[contains(text(),'Eng')]")
+	WebElement Select_English_language;
+
+	@FindBy(xpath = "//span[contains(text(),'Dark')]")
+	public WebElement Dark_Theme;
+
+	@FindBy(xpath = "//span[contains(text(),'Light')]")
+	public WebElement Light_Theme;
+
+	@FindBy(xpath = "//button/span[contains(text(),'Cricket')]")
+	public WebElement Home_Page_Cricket;
+
+	@FindBy(xpath = "((//a/h2)/..)")
+	public List<WebElement> Home_Page_Links;
+
+	public void switch_Language_To_Hindi() {
+		Actions a = new Actions(driver);
+		Duration time = Duration.ofSeconds(30);
+		wait = new WebDriverWait(driver, time);
+		wait.until(ExpectedConditions.visibilityOf(Select_Hindi_language));
+
+		if (Select_Hindi_language.isDisplayed() == true) {
+			a.moveToElement(Select_Hindi_language).pause(Duration.ofSeconds(2)).click().build().perform();
+
+		}
+
+	}
+
+	public void switch_Language_ToEnglish() {
+		Actions a = new Actions(driver);
+		Duration time = Duration.ofSeconds(30);
+		wait = new WebDriverWait(driver, time);
+
+		wait.until(ExpectedConditions.visibilityOf(Select_English_language));
+
+		if (Select_English_language.isDisplayed() == true) {
+			a.moveToElement(Select_English_language).pause(Duration.ofSeconds(2)).click().build().perform();
+		}
+	}
+
+	public void switch_to_Dark_Theme(WebDriver driver) {
+
+		if (Dark_Theme.isDisplayed() == true) {
+			Dark_Theme.click();
+		}
+	}
+
+	public void switch_to_Light_Theme(WebDriver driver) {
+
+		if (Light_Theme.isDisplayed() == true) {
+			Light_Theme.click();
+		}
+	}
+
+	public void validate_BrokenLink_HomePage() throws Throwable {
+
+		SoftAssert sa = new SoftAssert();
+		for (WebElement link : Home_Page_Links) {
+			
+			
+			String url = link.getAttribute("href");
+			String Parentwindow=driver.getWindowHandle();
+			Actions a = new Actions(driver);
+			a.keyDown(Keys.CONTROL).moveToElement(link).click().keyUp(Keys.CONTROL).build().perform();
+			Thread.sleep(1000);
+			//String click=Keys.chord(Keys.CONTROL,Keys.ENTER);
+			//a.sendKeys(click);			
+			//link.click();
+			//a.sendKeys(Keys.CONTROL.UP).build().perform();
+			for(String window: driver.getWindowHandles())
+			{
+				if(!Parentwindow.contentEquals(window))
+				{
+					driver.switchTo().window(window);
+					Thread.sleep(1000);
+					break;
+				}
+			}
+			HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
+			conn.setRequestMethod("HEAD");
+			conn.connect();
+			int respCode = conn.getResponseCode();
+			System.out.println(respCode+"  : "+url);
+			
+			sa.assertTrue(respCode < 400, "Broken link :" + url + " : " + respCode);
+			
+			driver.close();
+			driver.switchTo().window(Parentwindow);
+		}
+		sa.assertAll();
+		
+		
+	}
+
+}

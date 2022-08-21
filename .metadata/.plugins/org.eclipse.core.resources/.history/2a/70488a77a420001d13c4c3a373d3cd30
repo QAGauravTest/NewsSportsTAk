@@ -1,0 +1,79 @@
+package pageObjects;
+
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import org.testng.Assert;
+
+import Base.DriverInitializer;
+
+public class Web_Stories extends DriverInitializer{
+	
+	WebDriver driver;
+	
+	public Web_Stories(WebDriver driver) {
+		this.driver = driver;
+		PageFactory.initElements(driver, this);
+	}
+	
+	@FindBy(xpath = "//a[@target='_blank']/section/div")
+	public List<WebElement> Webstories;
+	
+	@FindBy(xpath = "(//button)[1]/..")
+	public WebElement NextButton;
+	
+	
+	@FindBy(xpath = "(//*[@class='letterbox']/p)")
+	public List<WebElement> WebstoriesDescription;
+			
+	public void Webstory1() throws InterruptedException
+	{
+		
+		String title=p.getProperty("WebStoryTitle");
+		Assert.assertTrue(driver.getTitle().contains(title));
+		String Parentwindow=driver.getWindowHandle();
+		Assert.assertTrue(driver.getWindowHandles().size()==1);
+		
+		Webstories.get(0).click();
+		Thread.sleep(2000);
+		
+		
+		for(String window: driver.getWindowHandles())
+		{
+			if(!Parentwindow.contentEquals(window))
+			{
+				driver.switchTo().window(window);
+				break;
+			}
+		}
+		
+		
+		
+
+		int x=1;
+		do {		
+			//Thread.sleep(2000);
+			
+			System.out.println("Description"+x+" : "+WebstoriesDescription.get(x).getText());
+			//System.out.println(driver.findElement(By.xpath("((//*[@class='letterbox']/p)["+x+"]//following::h1)[1]")).getText());
+			
+			NextButton.click();
+			Thread.sleep(4000);
+			x++;			
+		}
+		while(x==5);
+		
+		//driver.switchTo().window(Parentwindow);	
+		Thread.sleep(3000);
+		Webstories.get(1).click();
+	}
+	
+
+
+}

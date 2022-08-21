@@ -1,0 +1,56 @@
+package pageObjects;
+
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
+import java.util.List;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.WindowType;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.asserts.SoftAssert;
+
+public class CricketTab {
+	WebDriver driver;
+	WebDriverWait wait ;
+	
+	public CricketTab(WebDriver driver) {
+		this.driver = driver;
+		PageFactory.initElements(driver, this);
+	}
+	
+	
+	@FindBy( xpath= "(//h2[contains(@class,'MuiTypography')]/parent::a)" )
+	public List<WebElement> Home_Page_ALL_URLs;
+	
+	@FindBy( xpath ="((//div[@role='tablist'])[2]/button)[3]")
+	public WebElement ThirdPage;
+	
+	
+	public void validate_BrokenLink() throws Throwable
+	{
+
+	SoftAssert a = new SoftAssert();
+	for (WebElement link : Home_Page_ALL_URLs)
+	{
+		String url = link.getAttribute("href");
+		HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
+		conn.setRequestMethod("HEAD");
+		conn.connect();
+		int respCode = conn.getResponseCode();
+		System.out.println(respCode);
+		a.assertTrue(respCode < 400, "The link with Text" + link.getText() + " is broken with code" + respCode);
+	}
+
+	a.assertAll();// This step is mandatory to invoke All soft assertion
+	
+	
+	
+	}
+
+}

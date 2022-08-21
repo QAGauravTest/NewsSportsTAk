@@ -1,0 +1,50 @@
+package Base;
+
+import java.time.Duration;
+
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import pageObjects.CricketTab;
+import pageObjects.HomePage;
+import propertiesPackage.News;
+
+public class DriverInitializer {
+	
+	String FileName = "config.properties";
+	WebDriver driver;
+	News news_object;
+	Duration time = Duration.ofSeconds(30);
+	JavascriptExecutor js ;
+	HomePage HomePageObject;
+	CricketTab CricketTabObject;
+	
+ 	WebDriverWait wait ;
+
+	public static void main(String[] args) {
+
+		String current_working_directory = System.getProperty("user.dir");
+		System.setProperty("webdriver.chrome.driver", current_working_directory + "\\Driver\\chromedriver.exe");
+		driver = new ChromeDriver();
+		HomePageObject=new HomePage(driver);
+		CricketTabObject=new CricketTab(driver);
+
+		news_object = new News(driver);
+		wait = new WebDriverWait(driver, time);
+		js = (JavascriptExecutor) driver;
+		String URL = "";
+		try {
+			URL = news_object.propertiesPageValue("News_URL", "config.properties");
+		} catch (Exception e) {
+			
+		}
+		
+		news_object.launchURL(URL, driver);
+		
+		Thread.sleep(3000);
+	    System.out.println("Before Test Setup Done Successfully\n URL Launched\n------------------");
+	}
+
+}
