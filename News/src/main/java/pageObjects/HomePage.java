@@ -26,7 +26,7 @@ public class HomePage {
 		PageFactory.initElements(driver, this);
 	}
 
-	@FindBy(xpath = "(//*[text()='Home'])[2]")
+	@FindBy(xpath = "(//*[text()='Home'])")
 	public WebElement Home_Button;
 	
 	@FindBy(xpath = "(//*[text()='Back'])")

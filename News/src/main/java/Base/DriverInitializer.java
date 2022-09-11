@@ -11,13 +11,13 @@ public class DriverInitializer {
 	public static Properties p;
 	static FileInputStream fis;
 	
-	
+	public static String current_working_directory ;
 
 	public static WebDriver Initializer() throws IOException {
 
 		
 		p = new Properties();
-		String current_working_directory = System.getProperty("user.dir");
+	   current_working_directory = System.getProperty("user.dir");
 		
 		fis = new FileInputStream(current_working_directory+
 				"\\src\\main\\java\\config.properties");

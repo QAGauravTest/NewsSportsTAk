@@ -16,6 +16,7 @@ public class NavigateToURL extends DriverInitializer {
 		SiteURL = p.getProperty("News_URL");
 		driver.get(SiteURL);
 		driver.manage().window().maximize();
+		
 	}
 
 
