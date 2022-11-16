@@ -42,7 +42,7 @@ public class NewTest extends DriverInitializer {
     static String screenPath1 = " ";
     ITestResult result ;
 
-	@BeforeSuite
+	@BeforeSuite (groups = {"BeforeSuite" })
 	public void beforeTest_setup() throws Throwable {
 
 		NavigateToURL.UrlNavigation();
@@ -56,7 +56,7 @@ public class NewTest extends DriverInitializer {
 	}
 	
 
-	@Test(priority = 1, testName = "Change Language" )
+	@Test(priority = 1, testName = "Change Language" ,groups = {"sampleGroup" } )
 	public void selectLanguage_Test() throws InterruptedException, IOException {
 
 		screenPath = TestNGListner.screenPath ;
@@ -78,7 +78,7 @@ public class NewTest extends DriverInitializer {
 
 	}
 
-	@Test(priority = 4, testName = "Theme Test" , dependsOnMethods = {"selectLanguage_Test"})
+	@Test(priority = 4, testName = "Theme Test" , dependsOnMethods = {"selectLanguage_Test"} ,groups = {"sampleGroup" })
 	public void select_Theme() throws InterruptedException, IOException {
 
 		screenPath = TestNGListner.screenPath ;
@@ -104,7 +104,7 @@ public class NewTest extends DriverInitializer {
 
 	}
 
-	@Test(priority = 3, testName = "Cricket Test_scroll_Third")
+	@Test(priority = 3, testName = "Cricket Test_scroll_Third" ,groups = {"sampleGroup" } )
 	public void Cricket_Test() throws Throwable {
 		screenPath = TestNGListner.screenPath ;
 		screenPath1 = TestNGListner.screenPath1 ;
@@ -125,7 +125,7 @@ public class NewTest extends DriverInitializer {
 
 	
 
-	@Test(priority = 2)
+	@Test(priority = 2 , groups = {"sampleGroup" })
 	public void verify_Thumbnail_Links() throws Throwable {
 		screenPath = TestNGListner.screenPath ;
 		screenPath1 = TestNGListner.screenPath1 ;
@@ -136,10 +136,10 @@ public class NewTest extends DriverInitializer {
 		src = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE) ;
 		FileHandler.copy(src, new File( screenPath ) );
 		HomePageObject.HomePageAllButton.click();
-		Thread.sleep(3000);
+		driver.manage().timeouts().implicitlyWait(time);
 		
 		//TakeScreens
-		src = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE) ;
+		src = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE)  ;
 		FileHandler.copy(src, new File( screenPath1 ) );
 		
 		HomePageObject.validate_BrokenLink_HomePage();
@@ -147,13 +147,13 @@ public class NewTest extends DriverInitializer {
 	}
 	
 	
-//	@Test(priority = 5, testName = "Webstories Test 1")
-//	public void Webstories_Test() throws Exception {
-//
-//		HomePageObject.WebStoryButton.click();
-//		Thread.sleep(3000);
-//		WebStoryObject.Webstory1();
-//	}
+	@Test(priority = 5, testName = "Webstories Test 1" , enabled = false )
+	public void Webstories_Test() throws Exception {
+
+		HomePageObject.WebStoryButton.click();
+		Thread.sleep(3000);
+		WebStoryObject.Webstory1();
+	}
 	
 	
 

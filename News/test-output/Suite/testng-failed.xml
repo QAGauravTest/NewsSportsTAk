@@ -2,14 +2,16 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Suite]">
   <test thread-count="5" name="Test(failed)">
+    <groups>
+      <run>
+        <include name="sampleGroup"/>
+      </run>
+    </groups>
     <classes>
       <class name="propertiesPackage.NewTest">
         <methods>
           <include name="verify_Thumbnail_Links"/>
           <include name="beforeTest_setup"/>
-          <include name="afterTest"/>
-          <include name="select_Theme"/>
-          <include name="Webstories_Test1"/>
         </methods>
       </class> <!-- propertiesPackage.NewTest -->
     </classes>

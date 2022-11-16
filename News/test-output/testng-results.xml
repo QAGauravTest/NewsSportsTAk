@@ -1,37 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="0" ignored="0" total="4" passed="4">
+<testng-results skipped="0" failed="0" ignored="1" total="5" passed="4">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="85710" started-at="2022-09-11T18:05:41 IST" finished-at="2022-09-11T18:07:07 IST">
+  <suite name="Suite" duration-ms="125236" started-at="2022-11-16T11:23:08 IST" finished-at="2022-11-16T11:25:14 IST">
     <groups>
+      <group name="sampleGroup">
+        <method signature="NewTest.Cricket_Test()[pri:3, instance:propertiesPackage.NewTest@7276c8cd]" name="Cricket_Test" class="propertiesPackage.NewTest"/>
+        <method signature="NewTest.selectLanguage_Test()[pri:1, instance:propertiesPackage.NewTest@7276c8cd]" name="selectLanguage_Test" class="propertiesPackage.NewTest"/>
+        <method signature="NewTest.select_Theme()[pri:4, instance:propertiesPackage.NewTest@7276c8cd]" name="select_Theme" class="propertiesPackage.NewTest"/>
+        <method signature="NewTest.verify_Thumbnail_Links()[pri:2, instance:propertiesPackage.NewTest@7276c8cd]" name="verify_Thumbnail_Links" class="propertiesPackage.NewTest"/>
+      </group> <!-- sampleGroup -->
     </groups>
-    <test name="Default test" duration-ms="85710" started-at="2022-09-11T18:05:41 IST" finished-at="2022-09-11T18:07:07 IST">
+    <test name="Test" duration-ms="125236" started-at="2022-11-16T11:23:08 IST" finished-at="2022-11-16T11:25:14 IST">
       <class name="propertiesPackage.NewTest">
-        <test-method status="PASS" signature="beforeTest_setup()[pri:0, instance:propertiesPackage.NewTest@12c8a2c0]" name="beforeTest_setup" is-config="true" duration-ms="7487" started-at="2022-09-11T18:05:34 IST" finished-at="2022-09-11T18:05:41 IST">
+        <test-method status="PASS" signature="beforeTest_setup()[pri:0, instance:propertiesPackage.NewTest@7276c8cd]" name="beforeTest_setup" is-config="true" duration-ms="41183" started-at="2022-11-16T11:22:27 IST" finished-at="2022-11-16T11:23:08 IST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- beforeTest_setup -->
-        <test-method status="PASS" signature="selectLanguage_Test()[pri:1, instance:propertiesPackage.NewTest@12c8a2c0]" name="selectLanguage_Test" duration-ms="22147" started-at="2022-09-11T18:05:41 IST" finished-at="2022-09-11T18:06:03 IST">
+        <test-method status="PASS" signature="selectLanguage_Test()[pri:1, instance:propertiesPackage.NewTest@7276c8cd]" name="selectLanguage_Test" duration-ms="39992" started-at="2022-11-16T11:23:09 IST" finished-at="2022-11-16T11:23:49 IST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- selectLanguage_Test -->
-        <test-method status="PASS" signature="verify_Thumbnail_Links()[pri:2, instance:propertiesPackage.NewTest@12c8a2c0]" name="verify_Thumbnail_Links" duration-ms="35015" started-at="2022-09-11T18:06:03 IST" finished-at="2022-09-11T18:06:38 IST">
+        <test-method status="PASS" signature="verify_Thumbnail_Links()[pri:2, instance:propertiesPackage.NewTest@7276c8cd]" name="verify_Thumbnail_Links" duration-ms="44328" started-at="2022-11-16T11:23:49 IST" finished-at="2022-11-16T11:24:33 IST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- verify_Thumbnail_Links -->
-        <test-method status="PASS" signature="Cricket_Test()[pri:3, instance:propertiesPackage.NewTest@12c8a2c0]" name="Cricket_Test" duration-ms="11861" started-at="2022-09-11T18:06:38 IST" finished-at="2022-09-11T18:06:50 IST">
+        <test-method status="PASS" signature="Cricket_Test()[pri:3, instance:propertiesPackage.NewTest@7276c8cd]" name="Cricket_Test" duration-ms="23180" started-at="2022-11-16T11:24:33 IST" finished-at="2022-11-16T11:24:56 IST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- Cricket_Test -->
-        <test-method status="PASS" signature="select_Theme()[pri:4, instance:propertiesPackage.NewTest@12c8a2c0]" name="select_Theme" duration-ms="16629" started-at="2022-09-11T18:06:50 IST" depends-on-methods="propertiesPackage.NewTest.selectLanguage_Test" finished-at="2022-09-11T18:07:07 IST">
+        <test-method status="PASS" signature="select_Theme()[pri:4, instance:propertiesPackage.NewTest@7276c8cd]" name="select_Theme" duration-ms="17388" started-at="2022-11-16T11:24:56 IST" depends-on-methods="propertiesPackage.NewTest.selectLanguage_Test" finished-at="2022-11-16T11:25:14 IST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- select_Theme -->
-        <test-method status="PASS" signature="afterTest()[pri:0, instance:propertiesPackage.NewTest@12c8a2c0]" name="afterTest" is-config="true" duration-ms="1309" started-at="2022-09-11T18:07:08 IST" finished-at="2022-09-11T18:07:09 IST">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- afterTest -->
       </class> <!-- propertiesPackage.NewTest -->
-    </test> <!-- Default test -->
-  </suite> <!-- Default suite -->
+    </test> <!-- Test -->
+  </suite> <!-- Suite -->
 </testng-results>

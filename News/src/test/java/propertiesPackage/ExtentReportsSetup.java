@@ -15,14 +15,14 @@ public class ExtentReportsSetup {
 	
 		reports = new ExtentSparkReporter( path );
 		
-		reports.config().setReportName("Automation Report");
-		reports.config().setDocumentTitle("Test Report");
+		reports.config().setReportName("News Automation Report");
+		reports.config().setDocumentTitle("News Test Report");
 		
 	//	ExtentSparkReporter klov = new ExtentSparkReporter("MyProject");
 				
 		
 		extent = new ExtentReports();
-		extent.attachReporter(reports);
+		extent.attachReporter(reports) ;
 		return extent;
 		
 	}
